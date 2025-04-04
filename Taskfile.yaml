@@ -16,7 +16,7 @@ tasks:
 
   build:
     silent: true
-    desc: "Build the SEA for lanventory"
+    desc: "Build the SEA for bun-sea"
     deps:
       - init
     cmds:
@@ -42,11 +42,11 @@ tasks:
         sh: echo ${XDG_BIN_HOME:-~/.local/bin}/$PROJECT_NAME
 
   run:
-    desc: "Run the SEA for lanventory"
+    desc: "Run the SEA for bun-sea"
     deps:
       - build
     cmds:
-      - echo "Running SEA for lanventory..."
+      - echo "Running SEA for $PROJECT_NAME..."
       - ~/.local/bin/bun-sea hello
     vars:
       TARGET:
