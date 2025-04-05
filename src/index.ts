@@ -1,4 +1,5 @@
 import { $ } from "bun";
-import { hello } from "@/bin/hello";
 
-export { $, hello };
+export * from "@/globals/fs";
+
+export { $ };
