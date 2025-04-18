@@ -1,9 +1,21 @@
+import "@dotfiles/install.sh";
 import { upgradeBrew } from "@/lib/brew.lib";
 import { upgradeNpm } from "@/lib/node.lib";
 import { upgradePipxPackages } from "@/lib/python.lib";
 import { logger } from "@/lib/logger.lib";
+import { $ } from "bun";
 
 export async function upgradeAll() {
+	await $`./install.sh`.then((result) => {
+		if (result.exitCode !== 0) {
+			logger.error("Failed to run install.sh");
+			logger.error(result.stderr);
+			logger.error(result.stdout);
+			throw new Error("Failed to run install.sh");
+		}
+		logger.info("install.sh completed successfully");
+		logger.info(result.stdout);
+	});
 	logger.info("Upgrading brew packages...");
 	await upgradeBrew();
 	logger.info("Upgrading npm packages...");

@@ -1,9 +1,7 @@
 import "globals";
-
 import { Command } from "commander";
 import { logger, upgradeBrew } from "@/lib";
 import { upgradeAll } from "@/scripts/upgrade";
-import { isProgramInstalled } from "./globals/os";
 
 export const program = new Command();
 

@@ -137,3 +137,4 @@ dist
 
 # Taskfiles.dev
 .task
+.idea
