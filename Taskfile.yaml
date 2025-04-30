@@ -47,7 +47,7 @@ tasks:
       - build
     cmds:
       - echo "Running SEA for $PROJECT_NAME..."
-      - ~/.local/bin/$PROJECT_NAME update all
+      - ~/.local/bin/$PROJECT_NAME upgrade all
     vars:
       TARGET:
         sh: |

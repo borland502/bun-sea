@@ -1,14 +1,9 @@
 {
-  "name": "bun-sea",
+  "name": "sysupdate",
   "module": "main.ts",
   "type": "module",
   "devDependencies": {
     "@eslint/js": "^9.23.0",
-    "@types/bun": "latest",
-    "@types/commander": "^2.12.5",
-    "@types/pino": "^7.0.5",
-    "@types/pino-pretty": "^5.0.0",
-    "@types/which": "^3.0.4",
     "eslint": "^9.23.0",
     "eslint-config-google": "^0.14.0",
     "eslint-config-prettier": "^10.1.1",
@@ -21,7 +16,9 @@
     "typescript": "^5"
   },
   "dependencies": {
-    "@types/log4js": "^2.3.5",
+    "@types/bun": "latest",
+    "@types/commander": "^2.12.5",
+    "@types/which": "^3.0.4",    
     "@types/systeminformation": "^3.54.1",
     "@types/winston": "^2.4.4",
     "commander": "^13.1.0",
