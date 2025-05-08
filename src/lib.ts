@@ -1,5 +1,5 @@
 import "@/globals";
 
-import { has } from "@/lib/misc";
+import { has, pathAdd, envAdd } from "@/lib/misc";
 
-export { has };
+export { has, pathAdd, envAdd };
