@@ -1,4 +1,3 @@
-import { $ } from "bun";
 import { join } from "path";
 import { logger } from "@/globals/logger";
 

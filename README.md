@@ -19,6 +19,7 @@ Provides a template project with a file layout and library selection
 ```
 
 ### From XDG_BIN_HOME
+
 ```shell
     bun-sea hello
 ```

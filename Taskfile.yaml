@@ -1,7 +1,6 @@
 # yaml-language-server: $schema=https://taskfile.dev/schema.json
 version: "3"
 
-
 # Get the variable PROJECT_NAME from the environment or default to "bun_sea"
 vars:
   PROJECT_NAME:
