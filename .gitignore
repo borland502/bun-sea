@@ -140,3 +140,9 @@ dist
 
 # Bun cache
 .bun
+
+.idea
+bin/task
+
+.*.bun-build
+bin/task
