@@ -143,3 +143,6 @@ dist
 
 .idea
 bin/task
+
+.*.bun-build
+bin/task

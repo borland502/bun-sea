@@ -28,8 +28,11 @@ Provides a template project with a file layout and library selection
 
 1. [Bun](https://bun.sh/docs/bundler/executables)
 2. [Commander](https://github.com/tj/commander.js/tree/master)
-3. [Winston](https://github.com/winstonjs/winston)
-4. [Task](https://taskfile.dev)
+3. [Direnv](https://direnv.net)
+4. [Winston](https://github.com/winstonjs/winston)
+5. [Task](https://taskfile.dev)
+
+> If Task is not already installed it will be downloaded and placed in the $proj/bin folder
 
 ## References
 

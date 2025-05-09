@@ -2,7 +2,7 @@ import { exec } from "child_process";
 import { promisify } from "util";
 import * as os from "os";
 import * as path from "path";
-import { chmod, mkdir } from "fs/promises";
+import { chmod } from "fs/promises";
 
 const execAsync = promisify(exec);
 

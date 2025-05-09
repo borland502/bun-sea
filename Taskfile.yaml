@@ -24,6 +24,7 @@ tasks:
       - bun.lock
 
   lint:
+    silent: true
     desc: "Lint the SEA for $PROJECT_NAME"
     deps:
       - init
@@ -34,6 +35,7 @@ tasks:
 
   lint:fix:
     desc: "Lint and fix the SEA for $PROJECT_NAME"
+    silent: true
     deps:
       - init
     cmds:
@@ -42,6 +44,7 @@ tasks:
       - src/**/*.ts
 
   format:
+    silent: true
     desc: "Format the SEA for $PROJECT_NAME"
     deps:
       - init
@@ -80,6 +83,7 @@ tasks:
         sh: echo ${XDG_BIN_HOME:-~/.local/bin}/$PROJECT_NAME
 
   run:
+    silent: true
     desc: "Run the SEA for $PROJECT_NAME"
     deps:
       - build
