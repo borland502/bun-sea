@@ -1,5 +1,5 @@
 import { join } from "path";
-import { logger } from "@/globals/logger";
+import { logger } from "@/lib/logger";
 
 /**
  * Checks if a command exists in the PATH

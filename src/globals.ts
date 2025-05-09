@@ -1,5 +1,5 @@
 import * as globals from "@/index";
-import { logger } from "@/globals/logger";
+import { logger } from "@/lib/logger";
 
 Object.assign(globalThis, {
   ...globals,
@@ -8,5 +8,5 @@ Object.assign(globalThis, {
 
 declare global {
   const $: typeof globals.$;
-  const logger: typeof import("@/globals/logger").logger;
+  const logger: typeof import("@/lib/logger").logger;
 }
