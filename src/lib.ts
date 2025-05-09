@@ -1,5 +1,5 @@
 import "@/globals";
 
-import { has, pathAdd, envAdd } from "@/lib/misc";
+import { has, pathAdd, envAdd } from "@/lib/utils.ts";
 
 export { has, pathAdd, envAdd };
