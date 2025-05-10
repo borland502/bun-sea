@@ -1,21 +1,6 @@
-import { exec } from "child_process";
-import { promisify } from "util";
 import * as os from "os";
 import * as path from "path";
 import { chmod } from "fs/promises";
-
-const execAsync = promisify(exec);
-
-// Check if task is already installed
-export async function isTaskInstalled(): Promise<boolean> {
-  try {
-    await execAsync("task --version");
-    return true;
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  } catch (_error) {
-    return false;
-  }
-}
 
 // Download and install task
 export async function downloadAndInstallTask(): Promise<boolean> {

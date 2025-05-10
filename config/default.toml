@@ -1,0 +1,20 @@
+[app]
+name = "bun-sea"
+version = "0.1.2"
+description = "A CLI template for bootstrapping Bun applications"
+
+# Define commands that can be dynamically loaded
+[[commands]]
+name = "hello"
+description = "Hello world command"
+module = "hello"  # References the hello.ts in src/bin
+
+[[commands]]
+name = "download"
+description = "Download and install tools"
+subcommands = true  # Indicates this has subcommands
+
+[[commands.children]]
+name = "task"
+description = "Download and install Task from taskfile.dev"
+module = "download.task"  # References a task function in download.ts
