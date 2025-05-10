@@ -150,5 +150,3 @@ bin/task
 # Add to existing .gitignore
 config/*
 !config/default.toml
-!config/development.toml
-!config/production.toml

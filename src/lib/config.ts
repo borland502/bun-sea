@@ -1,23 +1,5 @@
 import config from "config";
-
-export interface AppConfig {
-  name: string;
-  version: string;
-  description: string;
-}
-
-export interface CommandConfig {
-  name: string;
-  description: string;
-  module?: string;
-  subcommands?: boolean;
-  children?: CommandConfig[];
-}
-
-export interface Config {
-  app: AppConfig;
-  commands: CommandConfig[];
-}
+import type { Config, AppConfig, CommandConfig } from "@/types/config";
 
 // Load and validate the configuration
 export function loadConfig(): Config {
