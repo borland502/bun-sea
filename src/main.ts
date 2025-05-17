@@ -1,6 +1,6 @@
 import "@/globals";
 
-import { downloadAndInstallTask } from "@/bin/download.ts";
+import { downloadAndInstallTask } from "@/bin/install";
 import { Command } from "commander";
 import { hello } from "@/index";
 import { has } from "./lib";
