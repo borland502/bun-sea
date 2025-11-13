@@ -1,36 +1,19 @@
 [app]
-  description = "A CLI template for bootstrapping Bun applications"
-  name = "bun-sea"
-  version = "0.1.2"
+description = "A CLI template for bootstrapping Bun applications"
+name = "helloc"
+version = "0.1.2"
 
 [[commands]]
-  description = "Hello world command"
-  module = "hello"
-  name = "hello"
+description = "Hello world command"
+module = "hello"
+name = "hello"
 
 [[commands]]
-  description = "Install tools"
-  name = "install"
-  subcommands = true
+description = "Install tools"
+name = "install"
+subcommands = true
 
 [[commands.children]]
-  description = "Downloadd and install Task"
-  module = "install.task"
-  name = "task"
-
-[[scripts]]
-  args = ["-d"]
-  cwd = "./bin"
-  description = "Taskfile.dev install script"
-  fileRef = "https://taskfile.dev/install.sh"
-  hash = "ec3bddb73655bfde488379c44e483323592024b35fc03cc5d3fdfb8a7edff5c1"
-  hashType = "sha256"
-  name = "Task"
-
-[[scripts]]
-  cwd = "./bin"
-  description = "Dotfiles-lite install script"
-  fileRef = "https://raw.githubusercontent.com/borland502/dotfiles-lite/main/install.sh"
-  hash = "479aa16e1936a29cbafc7a9f6b3344258772067cb868eef513162adbfb26f187"
-  hashType = "sha256"
-  name = "Dotfiles"
+description = "Download and install Task"
+module = "install.task"
+name = "task"
