@@ -29,9 +29,9 @@ tasks:
     deps:
       - init
     cmds:
-      - bun run eslint **/*.{ts,json,md,yaml}
+      - bun run eslint src/**/*.ts
     sources:
-      - "**/*.{ts,json,md,yaml}"
+      - "**/*.ts"
 
   lint:fix:
     desc: "Lint and fix the SEA for $PROJECT_NAME"
@@ -40,6 +40,26 @@ tasks:
       - init
     cmds:
       - bun run eslint src/**/*.ts --fix
+    sources:
+      - src/**/*.ts
+
+  typecheck:
+    silent: true
+    desc: "Type-check TypeScript in src/**/*.ts"
+    deps:
+      - init
+    cmds:
+      - bunx tsc --noEmit --project tsconfig.json
+    sources:
+      - src/**/*.ts
+
+  test:
+    silent: true
+    desc: "Run unit tests"
+    deps:
+      - init
+    cmds:
+      - bun test
     sources:
       - src/**/*.ts
 
@@ -60,6 +80,8 @@ tasks:
       - init
       - lint:fix
       - format
+      - typecheck
+      - test
     cmds:
       - mkdir -p ${XDG_BIN_HOME:-~/.local/bin}
       - |

@@ -1,4 +1,5 @@
 import { has, pathAdd } from "@/lib";
+import { logger } from "@/lib/logger";
 
 export async function hello(): Promise<void> {
   // Using various log levels from the global logger

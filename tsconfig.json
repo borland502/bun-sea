@@ -10,7 +10,10 @@
 
     // Bundler mode
     "moduleResolution": "bundler",
+    "baseUrl": ".",
     "allowImportingTsExtensions": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "verbatimModuleSyntax": true,
     "noEmit": true,
 
@@ -29,5 +32,7 @@
     "paths": {
       "@/*": ["./src/*"]
     }
-  }
+  },
+  "include": ["src/**/*.ts", "src/**/*.d.ts"],
+  "exclude": ["node_modules", "dist", "build"]
 }

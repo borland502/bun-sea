@@ -18,11 +18,14 @@ jobs:
         with:
           bun-version: latest
 
+      - name: Setup Task
+        uses: arduino/setup-task@v2
+
       - name: Install dependencies
         run: bun install
 
       - name: Run tests
-        run: bun test
+        run: task test
 
   lint:
     name: Lint
@@ -35,8 +38,31 @@ jobs:
         with:
           bun-version: latest
 
+      - name: Setup Task
+        uses: arduino/setup-task@v2
+
       - name: Install dependencies
         run: bun install
 
       - name: Run linter
-        run: bun run lint
+        run: task lint
+
+  typecheck:
+    name: Typecheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Setup Task
+        uses: arduino/setup-task@v2
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Run typecheck
+        run: task typecheck

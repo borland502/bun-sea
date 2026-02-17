@@ -1,6 +1,13 @@
-import { type AppConfig } from "@/types/config";
 import { logger } from "@/lib/logger";
-import { join } from "path";
+
+export interface InstallScript {
+  name: string;
+  description: string;
+  command: string;
+  args?: string[];
+  env?: NodeJS.ProcessEnv;
+  output?: "inherit" | "pipe";
+}
 
 /**
  * Creates a set of installation scripts based on application configuration
@@ -8,30 +15,24 @@ import { join } from "path";
  * @param appConfig The application configuration
  * @returns A set of Script objects for various installation tasks
  */
-export function createInstallationScripts(appConfig: AppConfig): Set<Script> {
-  for (const script of appConfig.scripts) {
-    if (script.name === "install-task") {
-      script.command = join(appConfig.bin, script.command);
-      script.description = `Install ${appConfig.name} task`;
-      script.args = [appConfig.name];
-      script.env = { ...process.env };
-      script.output = "inherit";
-    }
-  }
-  return new Set(appConfig.scripts);
+export function createInstallationScripts(): Set<InstallScript> {
+  return new Set([
+    {
+      name: "install-task",
+      description: "Download and install Task",
+      command: "sh",
+      args: ["-c", "curl -fsSL https://taskfile.dev/install.sh | sh -s -- -d"],
+      env: { ...process.env },
+      output: "inherit",
+    },
+  ]);
 }
 
 /**
  * Downloads and installs Task using the predefined script
  */
 export async function downloadAndInstallTask(): Promise<void> {
-  const taskScript = Array.from(
-    createInstallationScripts({
-      name: "bun-sea",
-      version: "0.1.2",
-      description: "A CLI template for bootstrapping Bun applications",
-    }),
-  ).find((script) => script.name === "install-task");
+  const taskScript = Array.from(createInstallationScripts()).find((script) => script.name === "install-task");
 
   if (!taskScript) {
     throw new Error("Task installation script not found");

@@ -1,6 +1,8 @@
 import * as os from "os";
 import * as path from "path";
 import { chmod } from "fs/promises";
+import { $ } from "bun";
+import { logger } from "@/lib/logger";
 
 // Download and install task
 export async function downloadAndInstallTask(): Promise<boolean> {
