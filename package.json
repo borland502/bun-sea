@@ -26,7 +26,6 @@
   },
   "dependencies": {
     "@iarna/toml": "^2.2.5",
-    "@types/log4js": "^2.3.5",
     "commander": "^14.0.3",
     "config": "^4.3.0",
     "toml": "^3.0.0",

@@ -16,15 +16,8 @@ export function loadConfig(): Config {
     if (error instanceof Error) {
       logger.error(`Failed to load configuration: ${error.message}`);
     }
-    // Provide reasonable defaults
-    return {
-      app: {
-        name: "bun-sea",
-        version: "0.1.1",
-        description: "Bun Single Executable Application",
-      },
-      commands: [],
-    };
+
+    process.exit(1);
   }
 }
 
