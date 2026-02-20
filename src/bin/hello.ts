@@ -1,6 +1,22 @@
 import { has, pathAdd } from "@/lib";
 import { logger } from "@/lib/logger";
 
+export interface HelloToOptions {
+  loud?: boolean;
+  logger?: boolean;
+}
+
+export async function helloTo(name: string, options?: HelloToOptions): Promise<void> {
+  const greeting = `Hello, ${name}!`;
+  const message = options?.loud ? greeting.toUpperCase() : greeting;
+
+  if (options?.logger === false) {
+    console.log(message);
+  } else {
+    logger.info(message);
+  }
+}
+
 export async function hello(): Promise<void> {
   // Using various log levels from the global logger
   logger.info("Hello world from info level!");

@@ -1,19 +1,34 @@
 [app]
 description = "A CLI template for bootstrapping Bun applications"
 name = "helloc"
-version = "0.2.4"
+version = "0.3.5"
 
 [[commands]]
 description = "Hello world command"
 name = "hello"
-subcommands = false
+
+[[commands.commands]]
+description = "Say hello to someone"
+name = "to"
+
+[[commands.commands.arguments]]
+name = "name"
+description = "The person to greet"
+required = true
+
+[[commands.commands.options]]
+flags = "-l, --loud"
+description = "Greet in uppercase"
+defaultValue = false
+
+[[commands.commands.options]]
+flags = "--no-logger"
+description = "Use plain console output instead of Winston logger"
 
 [[commands]]
 description = "Install tools"
 name = "install"
-subcommands = true
 
-[[commands.children]]
+[[commands.commands]]
 description = "Download and install Task"
 name = "task"
-subcommands = false
