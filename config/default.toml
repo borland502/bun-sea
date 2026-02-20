@@ -1,7 +1,7 @@
 [app]
 description = "A CLI template for bootstrapping Bun applications"
 name = "helloc"
-version = "0.3.6"
+version = "0.4.6"
 
 [[commands]]
 description = "Hello world command"
@@ -23,7 +23,7 @@ defaultValue = false
 
 [[commands.commands.options]]
 flags = "--no-logger"
-description = "Use plain console output instead of Winston logger"
+description = "Use plain console output instead of the logger"
 
 [[commands]]
 description = "Install tools"

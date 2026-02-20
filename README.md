@@ -35,7 +35,13 @@ task run -- install task            # runs: helloc install task
 
 ## Configuration
 
-Configuration is loaded from [config/default.toml](config/default.toml) and typed by [src/types/config.d.ts](src/types/config.d.ts).
+Configuration is loaded directly from [config/default.toml](config/default.toml) using Bun's built-in `Bun.TOML.parse()` and typed by [src/types/config.d.ts](src/types/config.d.ts). No third-party TOML library is needed.
+
+The config file path is resolved in this order:
+
+1. Explicit `configPath` argument passed to `loadConfig()`
+2. `CONFIG_PATH` environment variable (absolute or relative to CWD)
+3. `config/default.toml` relative to CWD
 
 All types are modeled after Commander's own typings (`Command`, `Argument`, `Option`) so the config file maps naturally to the CLI framework.
 
@@ -115,11 +121,10 @@ helloc install task       # download & install Task
 
 ## Libraries
 
-1. [Bun](https://bun.sh/docs/bundler/executables)
+1. [Bun](https://bun.sh/docs/bundler/executables) — runtime, bundler, `Bun.TOML` for config parsing
 2. [Commander](https://github.com/tj/commander.js/tree/master)
 3. [Direnv](https://direnv.net)
-4. [Winston](https://github.com/winstonjs/winston)
-5. [Task](https://taskfile.dev)
+4. [Task](https://taskfile.dev)
 
 > If Task is not already installed it will be downloaded and placed in the $proj/bin folder
 

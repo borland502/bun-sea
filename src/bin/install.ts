@@ -22,7 +22,7 @@ export function createInstallationScripts(): Set<InstallScript> {
       description: "Download and install Task",
       command: "sh",
       args: ["-c", "curl -fsSL https://taskfile.dev/install.sh | sh -s -- -d"],
-      env: { ...process.env },
+      env: { ...Bun.env },
       output: "inherit",
     },
   ]);

@@ -87,7 +87,9 @@ tasks:
       - |
         # dynamically select target based on TARGET env variable, default to bun-darwin-arm64 if not set
         TEMP_OUTFILE=./$PROJECT_NAME.tmp
-        bun build --compile --minify --sourcemap src/main.ts --target {{.TARGET}} --outfile $TEMP_OUTFILE
+        SOURCEMAP_FLAG=""
+        if [ "${DEBUG:-0}" = "1" ]; then SOURCEMAP_FLAG="--sourcemap"; fi
+        bun build --compile --minify $SOURCEMAP_FLAG src/main.ts --target {{.TARGET}} --outfile $TEMP_OUTFILE
         cp $TEMP_OUTFILE {{.OUTFILE}}
         rm $TEMP_OUTFILE
     sources:

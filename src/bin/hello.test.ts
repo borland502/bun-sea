@@ -21,12 +21,11 @@ test("hello() updates PATH with expected entries", async () => {
 });
 
 test("helloTo() greets the provided name", async () => {
-  const originalInfo = logger.info.bind(logger);
+  const originalInfo = logger.info;
   let loggedMessage = "";
-  logger.info = ((msg: string) => {
+  logger.info = (msg: string) => {
     loggedMessage = msg;
-    return logger;
-  }) as typeof logger.info;
+  };
 
   await helloTo("Alice");
 
@@ -35,12 +34,11 @@ test("helloTo() greets the provided name", async () => {
 });
 
 test("helloTo() greets in uppercase when loud option is set", async () => {
-  const originalInfo = logger.info.bind(logger);
+  const originalInfo = logger.info;
   let loggedMessage = "";
-  logger.info = ((msg: string) => {
+  logger.info = (msg: string) => {
     loggedMessage = msg;
-    return logger;
-  }) as typeof logger.info;
+  };
 
   await helloTo("Bob", { loud: true });
 
@@ -48,25 +46,24 @@ test("helloTo() greets in uppercase when loud option is set", async () => {
   logger.info = originalInfo;
 });
 
-test("helloTo() uses console.log when logger option is false", async () => {
-  const originalLog = console.log;
+test("helloTo() uses console.info when logger option is false", async () => {
+  const originalConsole = console.info;
   let consoleMessage = "";
-  console.log = (msg: string) => {
+  console.info = (msg: string) => {
     consoleMessage = msg;
   };
 
-  const originalInfo = logger.info.bind(logger);
+  const originalInfo = logger.info;
   let loggerCalled = false;
-  logger.info = (() => {
+  logger.info = () => {
     loggerCalled = true;
-    return logger;
-  }) as typeof logger.info;
+  };
 
   await helloTo("Carol", { logger: false });
 
   expect(consoleMessage).toBe("Hello, Carol!");
   expect(loggerCalled).toBe(false);
 
-  console.log = originalLog;
+  console.info = originalConsole;
   logger.info = originalInfo;
 });

@@ -11,7 +11,7 @@ export async function helloTo(name: string, options?: HelloToOptions): Promise<v
   const message = options?.loud ? greeting.toUpperCase() : greeting;
 
   if (options?.logger === false) {
-    console.log(message);
+    console.info(message);
   } else {
     logger.info(message);
   }
@@ -38,5 +38,5 @@ export async function hello(): Promise<void> {
 
   await pathAdd("PATH", "~/.local/bin", "~/bin");
 
-  logger.info(`Path variable: ${process.env.PATH}`);
+  logger.info(`Path variable: ${Bun.env.PATH}`);
 }
