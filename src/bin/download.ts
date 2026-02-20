@@ -8,7 +8,7 @@ import { logger } from "@/lib/logger";
 export async function downloadAndInstallTask(): Promise<boolean> {
   // Construct URL and binary path
   const url = "https://taskfile.dev/install.sh";
-  const tmpDir = process.env.TEMP || process.env.TEMP_DIR || os.tmpdir();
+  const tmpDir = Bun.env.TEMP || Bun.env.TEMP_DIR || os.tmpdir();
   const binPath = path.join(tmpDir, `task.sh`);
 
   logger.info(`Downloading Task from ${url}...`);

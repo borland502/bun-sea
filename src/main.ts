@@ -123,5 +123,5 @@ export function createProgram(config: Config = appConfig): Command {
 export const program = createProgram();
 
 if (import.meta.main) {
-  program.parse(process.argv);
+  program.parse(Bun.argv);
 }

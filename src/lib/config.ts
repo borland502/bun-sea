@@ -1,17 +1,25 @@
-import config from "config";
-import type { Config, AppConfig, CommandDefinition } from "@/types/config";
+import { resolve } from "path";
+import type { Config } from "@/types/config";
 import { logger } from "@/lib/logger";
 
-// Load and validate the configuration
-export function loadConfig(): Config {
-  try {
-    const appConfig = config.get<AppConfig>("app");
-    const commands = config.get<CommandDefinition[]>("commands");
+/** Default config path, resolved from CWD. Override via CONFIG_PATH env var. */
+const DEFAULT_CONFIG_PATH = "config/default.toml";
 
-    return {
-      app: appConfig,
-      commands: commands,
-    };
+/**
+ * Load and parse the TOML configuration file.
+ *
+ * Resolution order for the config file path:
+ * 1. `CONFIG_PATH` environment variable (absolute or relative to CWD)
+ * 2. `config/default.toml` relative to CWD
+ */
+export async function loadConfig(configPath?: string): Promise<Config> {
+  const filePath = configPath ?? Bun.env.CONFIG_PATH ?? DEFAULT_CONFIG_PATH;
+
+  try {
+    const raw = await Bun.file(resolve(filePath)).text();
+    const parsed = Bun.TOML.parse(raw) as unknown as Config;
+
+    return parsed;
   } catch (error) {
     if (error instanceof Error) {
       logger.error(`Failed to load configuration: ${error.message}`);
@@ -21,5 +29,5 @@ export function loadConfig(): Config {
   }
 }
 
-// Export a singleton instance
-export const appConfig = loadConfig();
+// Export a singleton instance (top-level await)
+export const appConfig = await loadConfig();
