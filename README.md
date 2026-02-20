@@ -15,7 +15,16 @@ Provides a template project with a file layout and library selection
 ### From Binary (~/.local/bin assumed to be in path)
 
 ```shell
-    task build && task run
+task build && task run
+```
+
+Arguments after `--` are forwarded to the built binary (defaults to `hello` when omitted):
+
+```shell
+task run                            # runs: helloc hello
+task run -- hello to "Bob"          # runs: helloc hello to Bob
+task run -- hello to "Bob" --loud   # runs: helloc hello to Bob --loud
+task run -- install task            # runs: helloc install task
 ```
 
 ### From XDG_BIN_HOME
@@ -28,22 +37,35 @@ Provides a template project with a file layout and library selection
 
 Configuration is loaded from [config/default.toml](config/default.toml) and typed by [src/types/config.d.ts](src/types/config.d.ts).
 
+All types are modeled after Commander's own typings (`Command`, `Argument`, `Option`) so the config file maps naturally to the CLI framework.
+
 ### Schema
 
-- `app.name`: CLI name used by Commander.
-- `app.description`: Description shown in help output.
-- `app.version`: CLI version string.
-- `commands[]`: Ordered command definitions used to register CLI commands.
-- `commands[].name`: Command name.
-- `commands[].description`: Command description.
-- `commands[].subcommands`: `true` when the command has nested `children`.
-- `commands[].children`: Nested command list (used when `subcommands = true`).
+| Path                                  | Type                 | Description                                |
+| ------------------------------------- | -------------------- | ------------------------------------------ |
+| `app.name`                            | `string`             | CLI name used by Commander                 |
+| `app.description`                     | `string`             | Description shown in help output           |
+| `app.version`                         | `string`             | CLI version string                         |
+| `commands[]`                          | `CommandDefinition`  | Ordered command definitions (recursive)    |
+| `commands[].name`                     | `string`             | Command name                               |
+| `commands[].description`              | `string`             | Command description                        |
+| `commands[].arguments[]`              | `ArgumentDefinition` | Positional arguments (any level)           |
+| `commands[].arguments[].name`         | `string`             | Argument name                              |
+| `commands[].arguments[].description`  | `string`             | Help text                                  |
+| `commands[].arguments[].required`     | `boolean`            | Required (default `true`)                  |
+| `commands[].arguments[].variadic`     | `boolean`            | Accepts multiple values                    |
+| `commands[].arguments[].defaultValue` | `string`             | Fallback value                             |
+| `commands[].options[]`                | `OptionDefinition`   | Flags / options (any level)                |
+| `commands[].options[].flags`          | `string`             | Commander flag syntax, e.g. `"-l, --loud"` |
+| `commands[].options[].description`    | `string`             | Help text                                  |
+| `commands[].options[].defaultValue`   | `string \| boolean`  | Fallback value                             |
+| `commands[].options[].required`       | `boolean`            | Whether Commander enforces the option      |
+| `commands[].commands[]`               | `CommandDefinition`  | Nested subcommands (recursive, any depth)  |
 
-### Unknown Commands
+### Command Registration
 
-- During command registration, unrecognized command names and subcommand names are logged as errors.
-- Current handling is implemented in [src/main.ts](src/main.ts) using default branches in `switch` statements.
-- Unknown entries now fail startup immediately with an error.
+Commands are registered **recursively** from the config tree. An action handler is attached only when the command's fully-qualified slash-delimited path (e.g. `"install/task"`) is present in the action registry in [src/main.ts](src/main.ts).
+Commands without a registered action still appear in the help output and can serve as parents for subcommands.
 
 ### Example
 
@@ -51,22 +73,44 @@ Configuration is loaded from [config/default.toml](config/default.toml) and type
 [app]
 name = "helloc"
 description = "A CLI template for bootstrapping Bun applications"
-version = "0.1.2"
+version = "0.2.4"
 
+# Simple parent command
 [[commands]]
 name = "hello"
 description = "Hello world command"
-subcommands = false
 
+# Subcommand with a positional argument and an option flag
+[[commands.commands]]
+name = "to"
+description = "Say hello to someone"
+
+[[commands.commands.arguments]]
+name = "name"
+description = "The person to greet"
+required = true
+
+[[commands.commands.options]]
+flags = "-l, --loud"
+description = "Greet in uppercase"
+defaultValue = false
+
+# Another top-level command with its own subcommand
 [[commands]]
 name = "install"
 description = "Install tools"
-subcommands = true
 
-[[commands.children]]
+[[commands.commands]]
 name = "task"
 description = "Download and install Task"
-subcommands = false
+```
+
+The example above produces the following CLI surface:
+
+```
+helloc hello              # run the hello action
+helloc hello to <name>    # greet someone (--loud for uppercase)
+helloc install task       # download & install Task
 ```
 
 ## Libraries
