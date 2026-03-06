@@ -16,6 +16,7 @@ env:
 tasks:
   init:
     silent: true
+    run: once
     cmds:
       - bun install
     sources:
