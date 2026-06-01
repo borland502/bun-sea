@@ -23,7 +23,7 @@
     "typescript": "^5.8.2"
   },
   "dependencies": {
-    "commander": "^14.0.3"
+    "commander": "^15.0.0"
   },
   "scripts": {
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
